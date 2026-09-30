@@ -747,6 +747,8 @@ fun VoucherCustomerPickerDialog(
 fun TabPaymentVoucher(viewModel: InvoiceViewModel) {
   val context = LocalContext.current
   val uiState by viewModel.uiState.collectAsState()
+  val dynamicShadedColor = LocalShadedFieldColor.current
+  val dynamicShadedBorder = LocalShadedFieldBorder.current
   var acc by remember { mutableStateOf("") }
   var amountStr by remember { mutableStateOf("") }
   var curr by remember { mutableStateOf("YER") }
@@ -946,10 +948,10 @@ fun TabPaymentVoucher(viewModel: InvoiceViewModel) {
         modifier = Modifier
           .fillMaxWidth()
           .height(48.dp)
-          .background(Color(0xFFFFF0F3), RoundedCornerShape(10.dp))
+          .background(dynamicShadedColor, RoundedCornerShape(10.dp))
           .border(
             1.dp,
-            if (isAccNotFound) Color(0xFFEF4444) else Color(0xFFFDA4AF),
+            if (isAccNotFound) Color(0xFFEF4444) else dynamicShadedBorder,
             RoundedCornerShape(10.dp)
           )
           .padding(horizontal = 14.dp),
@@ -1092,8 +1094,8 @@ fun TabPaymentVoucher(viewModel: InvoiceViewModel) {
           modifier = Modifier
             .fillMaxWidth()
             .height(48.dp)
-            .background(Color(0xFFFFF0F3), RoundedCornerShape(10.dp))
-            .border(1.dp, Color(0xFFFDA4AF), RoundedCornerShape(10.dp))
+            .background(dynamicShadedColor, RoundedCornerShape(10.dp))
+            .border(1.dp, dynamicShadedBorder, RoundedCornerShape(10.dp))
             .padding(horizontal = 14.dp),
           decorationBox = { innerTextField ->
             Box(
@@ -1128,8 +1130,8 @@ fun TabPaymentVoucher(viewModel: InvoiceViewModel) {
           modifier = Modifier
             .fillMaxWidth()
             .height(48.dp)
-            .background(Color(0xFFFFF0F3), RoundedCornerShape(10.dp))
-            .border(1.dp, Color(0xFFFDA4AF), RoundedCornerShape(10.dp))
+            .background(dynamicShadedColor, RoundedCornerShape(10.dp))
+            .border(1.dp, dynamicShadedBorder, RoundedCornerShape(10.dp))
             .padding(horizontal = 14.dp),
           decorationBox = { innerTextField ->
             Box(
@@ -1595,6 +1597,8 @@ fun TabPaymentVoucher(viewModel: InvoiceViewModel) {
 fun TabReceiptVoucher(viewModel: InvoiceViewModel) {
   val context = LocalContext.current
   val uiState by viewModel.uiState.collectAsState()
+  val dynamicShadedColor = LocalShadedFieldColor.current
+  val dynamicShadedBorder = LocalShadedFieldBorder.current
   var acc by remember { mutableStateOf("") }
   var amountStr by remember { mutableStateOf("") }
   var curr by remember { mutableStateOf("YER") }
@@ -1668,8 +1672,8 @@ fun TabReceiptVoucher(viewModel: InvoiceViewModel) {
             modifier = Modifier
               .fillMaxWidth()
               .height(48.dp)
-              .background(Color(0xFFFFF0F3), RoundedCornerShape(10.dp))
-              .border(1.dp, Color(0xFFFDA4AF), RoundedCornerShape(10.dp))
+              .background(dynamicShadedColor, RoundedCornerShape(10.dp))
+              .border(1.dp, dynamicShadedBorder, RoundedCornerShape(10.dp))
               .padding(horizontal = 14.dp),
             decorationBox = { innerTextField ->
               Box(
@@ -1699,8 +1703,8 @@ fun TabReceiptVoucher(viewModel: InvoiceViewModel) {
               modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)
-                .background(Color(0xFFFFF0F3), RoundedCornerShape(10.dp))
-                .border(1.dp, Color(0xFFFDA4AF), RoundedCornerShape(10.dp))
+                .background(dynamicShadedColor, RoundedCornerShape(10.dp))
+                .border(1.dp, dynamicShadedBorder, RoundedCornerShape(10.dp))
                 .clickable { currMenuExpanded = true }
                 .padding(horizontal = 12.dp)
             ) {
@@ -1794,10 +1798,10 @@ fun TabReceiptVoucher(viewModel: InvoiceViewModel) {
         modifier = Modifier
           .fillMaxWidth()
           .height(48.dp)
-          .background(Color(0xFFFFF0F3), RoundedCornerShape(10.dp))
+          .background(dynamicShadedColor, RoundedCornerShape(10.dp))
           .border(
             1.dp,
-            if (isAccNotFound) Color(0xFFEF4444) else Color(0xFFFDA4AF),
+            if (isAccNotFound) Color(0xFFEF4444) else dynamicShadedBorder,
             RoundedCornerShape(10.dp)
           )
           .padding(horizontal = 14.dp),
@@ -1940,8 +1944,8 @@ fun TabReceiptVoucher(viewModel: InvoiceViewModel) {
           modifier = Modifier
             .fillMaxWidth()
             .height(48.dp)
-            .background(Color(0xFFFFF0F3), RoundedCornerShape(10.dp))
-            .border(1.dp, Color(0xFFFDA4AF), RoundedCornerShape(10.dp))
+            .background(dynamicShadedColor, RoundedCornerShape(10.dp))
+            .border(1.dp, dynamicShadedBorder, RoundedCornerShape(10.dp))
             .padding(horizontal = 14.dp),
           decorationBox = { innerTextField ->
             Box(
@@ -1976,8 +1980,8 @@ fun TabReceiptVoucher(viewModel: InvoiceViewModel) {
           modifier = Modifier
             .fillMaxWidth()
             .height(48.dp)
-            .background(Color(0xFFFFF0F3), RoundedCornerShape(10.dp))
-            .border(1.dp, Color(0xFFFDA4AF), RoundedCornerShape(10.dp))
+            .background(dynamicShadedColor, RoundedCornerShape(10.dp))
+            .border(1.dp, dynamicShadedBorder, RoundedCornerShape(10.dp))
             .padding(horizontal = 14.dp),
           decorationBox = { innerTextField ->
             Box(

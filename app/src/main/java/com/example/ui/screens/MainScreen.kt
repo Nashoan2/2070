@@ -146,7 +146,7 @@ fun MainScreen(viewModel: InvoiceViewModel) {
     Column(
       modifier = Modifier
         .fillMaxSize()
-        .verticalScroll(scrollState)
+        .verticalScroll(scrollState, enabled = uiState.isFormVisible)
         .padding(horizontal = 14.dp, vertical = 12.dp)
     ) {
       // 1. ترويسة الشاشة الرئيسية (شعار المملكة محاط بإطار نيون متوهج على اليسار، واسم المتجر بخط أبيض عريض مع خط نيون على اليمين)
@@ -1384,32 +1384,34 @@ fun QuickShortcutCard(
   modifier: Modifier = Modifier,
   onClick: () -> Unit
 ) {
-  val (borderColor, iconGradient, displayLabel) = when (shortcut.id) {
-    "CURRENCY_CONVERTER" -> Triple(
-      Color(0xFF10B981),
-      listOf(Color(0xFF10B981), Color(0xFF059669)),
-      "محول العملات"
-    )
-    "ALL_CUSTOMERS" -> Triple(
-      Color(0xFF2563EB),
-      listOf(Color(0xFF3B82F6), Color(0xFF1D4ED8)),
-      "جميع العملاء"
-    )
-    "PERCENTAGE_CALCULATOR" -> Triple(
-      Color(0xFF6366F1),
-      listOf(Color(0xFF818CF8), Color(0xFF4F46E5)),
-      if (shortcut.label == "النسبة المئوية") "حاسبة النسبة المئ..." else shortcut.label
-    )
-    "FULL_CALCULATOR" -> Triple(
-      Color(0xFFDC2626),
-      listOf(Color(0xFFEF4444), Color(0xFFDC2626)),
-      if (shortcut.label == "الآلة الحاسبة") "آلة حاسبه النسبة" else shortcut.label
-    )
-    else -> Triple(
-      Color(0xFF2563EB),
-      listOf(Color(0xFF3B82F6), Color(0xFF1D4ED8)),
-      shortcut.label
-    )
+  val (borderColor, iconGradient, displayLabel) = remember(shortcut.id, shortcut.label) {
+    when (shortcut.id) {
+      "CURRENCY_CONVERTER" -> Triple(
+        Color(0xFF10B981),
+        listOf(Color(0xFF10B981), Color(0xFF059669)),
+        "محول العملات"
+      )
+      "ALL_CUSTOMERS" -> Triple(
+        Color(0xFF2563EB),
+        listOf(Color(0xFF3B82F6), Color(0xFF1D4ED8)),
+        "جميع العملاء"
+      )
+      "PERCENTAGE_CALCULATOR" -> Triple(
+        Color(0xFF6366F1),
+        listOf(Color(0xFF818CF8), Color(0xFF4F46E5)),
+        if (shortcut.label == "النسبة المئوية") "حاسبة النسبة المئ..." else shortcut.label
+      )
+      "FULL_CALCULATOR" -> Triple(
+        Color(0xFFDC2626),
+        listOf(Color(0xFFEF4444), Color(0xFFDC2626)),
+        if (shortcut.label == "الآلة الحاسبة") "آلة حاسبه النسبة" else shortcut.label
+      )
+      else -> Triple(
+        Color(0xFF2563EB),
+        listOf(Color(0xFF3B82F6), Color(0xFF1D4ED8)),
+        shortcut.label
+      )
+    }
   }
 
   Surface(
@@ -1501,7 +1503,9 @@ fun MainAppActionButton(
   modifier: Modifier = Modifier,
   onClick: () -> Unit
 ) {
-  val (gradientColors, borderColor) = getButtonGradientsAndBorder(button)
+  val (gradientColors, borderColor) = remember(button.id, button.colorHex) {
+    getButtonGradientsAndBorder(button)
+  }
 
   Surface(
     onClick = onClick,

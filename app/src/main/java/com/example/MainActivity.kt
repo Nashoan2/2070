@@ -86,11 +86,13 @@ fun AlmamlakaApp(
   val context = LocalContext.current
   val uiState by viewModel.uiState.collectAsState()
 
-  BackHandler(enabled = uiState.currentScreen != AppScreen.MAIN || uiState.isFormVisible) {
+  BackHandler(enabled = true) {
     if (uiState.isFormVisible && uiState.currentScreen == AppScreen.MAIN) {
       viewModel.closeInvoiceForm()
-    } else {
+    } else if (uiState.currentScreen != AppScreen.MAIN) {
       viewModel.navigateTo(AppScreen.MAIN)
+    } else {
+      viewModel.setExitConfirmDialogVisible(true)
     }
   }
 

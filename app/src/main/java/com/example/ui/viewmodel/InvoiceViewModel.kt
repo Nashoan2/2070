@@ -1013,6 +1013,7 @@ class InvoiceViewModel(application: Application) : AndroidViewModel(application)
       "ROOM_BACKUP" -> setRoomBackupModalVisible(true)
       "SETTINGS" -> setSettingsModalVisible(true)
       "EXIT_APP" -> {
+        _uiState.value = _uiState.value.copy(showExitConfirmDialog = false)
         var act: android.app.Activity? = context as? android.app.Activity
         var ctx = context
         while (act == null && ctx is android.content.ContextWrapper) {
@@ -1020,6 +1021,7 @@ class InvoiceViewModel(application: Application) : AndroidViewModel(application)
           act = ctx as? android.app.Activity
         }
         act?.finishAffinity() ?: act?.finish()
+        kotlin.system.exitProcess(0)
       }
       "CUSTOM_PACKAGE" -> {
         val priceVal = button.customParam.toDoubleOrNull() ?: 0.0
