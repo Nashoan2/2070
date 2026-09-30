@@ -45,26 +45,6 @@ import com.example.util.PrintHelper
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    try {
-      android.webkit.WebView.enableSlowWholeDocumentDraw()
-    } catch (_: Exception) {}
-    try {
-      // Ensure all Chromium/WebView cache directory structures exist with proper permissions
-      // to prevent "simple_version_upgrade.cc: Failed to write a new fake index" errors
-      val webViewBaseDir = java.io.File(dataDir, "app_webview")
-      if (!webViewBaseDir.exists()) webViewBaseDir.mkdirs()
-      
-      val webViewDefaultCache = java.io.File(webViewBaseDir, "Default/HTTP Cache")
-      if (!webViewDefaultCache.exists()) webViewDefaultCache.mkdirs()
-
-      val fakeIndex = java.io.File(webViewDefaultCache, "index-dir")
-      if (!fakeIndex.exists()) fakeIndex.mkdirs()
-
-      val codeCacheJs = java.io.File(cacheDir, "WebView/Default/HTTP Cache/Code Cache/js")
-      if (!codeCacheJs.exists()) codeCacheJs.mkdirs()
-      val codeCacheWasm = java.io.File(cacheDir, "WebView/Default/HTTP Cache/Code Cache/wasm")
-      if (!codeCacheWasm.exists()) codeCacheWasm.mkdirs()
-    } catch (_: Exception) {}
     enableEdgeToEdge()
     setContent {
       MyApplicationTheme {
@@ -75,6 +55,28 @@ class MainActivity : ComponentActivity() {
         }
       }
     }
+
+    // Run WebView filesystem warmup in a background thread so it never delays the first frame
+    Thread {
+      try {
+        android.webkit.WebView.enableSlowWholeDocumentDraw()
+      } catch (_: Exception) {}
+      try {
+        val webViewBaseDir = java.io.File(dataDir, "app_webview")
+        if (!webViewBaseDir.exists()) webViewBaseDir.mkdirs()
+        
+        val webViewDefaultCache = java.io.File(webViewBaseDir, "Default/HTTP Cache")
+        if (!webViewDefaultCache.exists()) webViewDefaultCache.mkdirs()
+
+        val fakeIndex = java.io.File(webViewDefaultCache, "index-dir")
+        if (!fakeIndex.exists()) fakeIndex.mkdirs()
+
+        val codeCacheJs = java.io.File(cacheDir, "WebView/Default/HTTP Cache/Code Cache/js")
+        if (!codeCacheJs.exists()) codeCacheJs.mkdirs()
+        val codeCacheWasm = java.io.File(cacheDir, "WebView/Default/HTTP Cache/Code Cache/wasm")
+        if (!codeCacheWasm.exists()) codeCacheWasm.mkdirs()
+      } catch (_: Exception) {}
+    }.start()
   }
 }
 

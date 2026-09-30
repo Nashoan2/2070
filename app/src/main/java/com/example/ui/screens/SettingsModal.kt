@@ -354,11 +354,11 @@ fun SettingsModal(viewModel: InvoiceViewModel, onDismiss: () -> Unit) {
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            // Subtitle: "إدارة التطبيق وتخصيصه حسب احتياجاتك"
+            // Subtitle: "المطور عبد العزيز راجح"
             Text(
-              text = "إدارة التطبيق وتخصيصه حسب احتياجاتك",
-              fontSize = 14.sp,
-              fontWeight = FontWeight.SemiBold,
+              text = "المطور عبد العزيز راجح",
+              fontSize = 15.sp,
+              fontWeight = FontWeight.Bold,
               color = Color.White,
               textAlign = TextAlign.Center
             )
